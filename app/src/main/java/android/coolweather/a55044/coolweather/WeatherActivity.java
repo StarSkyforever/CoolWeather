@@ -1,8 +1,10 @@
 package android.coolweather.a55044.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.coolweather.a55044.coolweather.gson.Forecast;
 import android.coolweather.a55044.coolweather.gson.Weather;
+import android.coolweather.a55044.coolweather.service.AutoUpdateService;
 import android.coolweather.a55044.coolweather.util.HttpUtil;
 import android.coolweather.a55044.coolweather.util.Utility;
 import android.graphics.Color;
@@ -198,6 +200,7 @@ public class WeatherActivity extends AppCompatActivity {
     }
     //处理并展示Weather
     private void showWeatherInfo(Weather weather) {
+
         String cityName=weather.basic.cityName;
         String updateTime=weather.basic.update.updateTime.split(" ")[1];
         String degree=weather.now.temperature+"C";
@@ -230,5 +233,7 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent=new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 }
